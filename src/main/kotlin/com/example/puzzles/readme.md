@@ -18,3 +18,6 @@ For [1, 2, 3, 2, 1] and the window size 2 find [<0:1>, <1:2>, <2:3>, <3:3>, <4:2
 Select K resources out of the pool of N (K <= N) for processing of an object.
 
 The object and all resource have unique and stable identifiers.
+
+## [CoinChange.kt](./CoinChange.kt)
+The popular coin change problem solved dynamically with an array of previous solutions.

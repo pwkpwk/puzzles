@@ -13,7 +13,7 @@ object CoinChange {
         val data = arrayOfNulls<Change>(sum + 1)
         val highestCoin = coins[coins.size - 1] // Important that the denominations are ordered!
 
-        data[0] = Change(0, Array<Int>(coins.size) { 0 })
+        data[0] = Change(0, Array(coins.size) { 0 })
 
         for (i in 1..sum) {
             // Now the funny part - how can we add one coin to some of the recent solutions
@@ -51,11 +51,11 @@ object CoinChange {
                     else
                         count
                 }.let {
-                    data[i] = Change(minCoins, it);
+                    data[i] = Change(minCoins, it)
                 }
             }
 
-            // A little cleanup - remove the solutiuon that is behind the reach of the algorithm - farther
+            // A little cleanup - remove the solution that is behind the reach of the algorithm - farther
             // than the highers coin denomination back. Those solutions won't be re-examined.
             if (i >= highestCoin) {
                 data[i - highestCoin] = null

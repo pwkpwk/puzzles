@@ -21,3 +21,7 @@ The object and all resource have unique and stable identifiers.
 
 ## [CoinChange.kt](./CoinChange.kt)
 The popular coin change problem solved dynamically with an array of previous solutions.
+
+## [Islands.kt](./Islands.kt)
+Count islands of connected vertices in a graph.
+

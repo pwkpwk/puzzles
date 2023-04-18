@@ -30,3 +30,8 @@ Find the lonesome peak value in a sequence of numbers by binary searching for th
 
 ## [Queens.kt](./Queens.kt)
 Position N queens on an N x N chess board.
+
+## [Dice.kt](./Dice.kt)
+Count number of possible dice rolls that add up to a number.
+
+Example: **6** combinations of 2 6-sided dice add up to 7

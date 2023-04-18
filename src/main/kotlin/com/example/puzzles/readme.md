@@ -25,3 +25,8 @@ The popular coin change problem solved dynamically with an array of previous sol
 ## [Islands.kt](./Islands.kt)
 Count islands of connected vertices in a graph.
 
+## [Peakfinder.kt](./Peakfinder.kt)
+Find the lonesome peak value in a sequence of numbers by binary searching for the start of the decline.
+
+## [Queens.kt](./Queens.kt)
+Position N queens on an N x N chess board.

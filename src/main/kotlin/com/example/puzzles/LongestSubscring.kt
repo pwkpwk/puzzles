@@ -6,62 +6,72 @@ import kotlin.math.min
 
 object LongestSubstring {
 
-    fun findLongestRepeatingSubstring(text: String): Match {
-        val offsets = Array(text.length) { i -> i }
-        var maxLength = 0
-        var index = 0;
+    private val noMatch by lazy { Match(0, 0, 0) }
 
-        // Sort substrings pointed by the offsets in the array, which will bring strings
-        // with the same prefix together
-        Arrays.sort(offsets) { x, y -> compareSubstrings(text, x, y) }
+    fun findLongestRepeatingSubstring(text: String): Match =
+        Array(text.length) { i -> i }.let {
+            var maxLength = 0
+            var index = 0;
 
-        // Scan the offsets and find the longest prefix of the adjacent substrings pointed by offsets
-        for (i in 0 until text.length - 1) {
-            commonPrefixLength(text, offsets[i], offsets[i + 1]).let {
-                if (it > maxLength) {
-                    maxLength = it
-                    index = i
+            // Sort substrings pointed by the offsets in the array, which will bring strings
+            // with the same prefix together
+            Arrays.sort(it, OffsetComparator(text))
+
+            // Scan the offsets and find the longest prefix of the adjacent substrings pointed by offsets
+            for (i in 0 until text.length - 1) {
+                commonPrefixLength(text, it[i], it[i + 1]).let {
+                    if (it > maxLength) {
+                        maxLength = it
+                        index = i
+                    }
                 }
             }
+
+            if (maxLength > 0)
+                Match(it[index], it[index + 1], maxLength)
+            else
+                noMatch
         }
 
-        return if (maxLength > 0)
-            Match(offsets[index], offsets[index + 1], maxLength)
-        else
-            Match(0, 0, 0)
-    }
-
-    class Match(x: Int, y: Int, l: Int) {
+    class Match(x: Int, y: Int, val length: Int) {
         val first = min(x, y)
         val second = max(x, y)
-        val length = l
     }
 
-    private fun compareSubstrings(text: String, offset1: Int, offset2: Int): Int {
-        var x = offset1
-        var y = offset2
+    private class OffsetComparator(private val text: String) : Comparator<Int> {
 
-        while (x < text.length && y < text.length) {
-            when {
-                text[x] < text[y] -> return -1
-                text[x] > text[y] -> return 1
+        override fun compare(offset1: Int, offset2: Int): Int {
+            var x = offset1
+            var y = offset2
+            var bound = max(x, y)
+
+            while (bound < text.length) {
+                when {
+                    text[x] < text[y] -> return -1
+                    text[x] > text[y] -> return 1
+                    else -> {
+                        ++x
+                        ++y
+                        ++bound
+                    }
+                }
             }
-            ++x
-            ++y
-        }
 
-        return 0
+            return 0
+        }
     }
 
     private fun commonPrefixLength(text: String, offset1: Int, offset2: Int): Int {
         var x = offset1
         var y = offset2
+        var bound = max(x, y)
         var length = 0
 
-        while (x < text.length && y < text.length && text[x] == text[y]) {
+        while (bound < text.length && text[x] == text[y]) {
             ++length
             ++x
             ++y
+            ++bound
         }
 
         return length

@@ -11,7 +11,7 @@ object LongestSubstring {
     fun findLongestRepeatingSubstring(text: String): Match =
         Array(text.length) { i -> i }.let {
             var maxLength = 0
-            var index = 0;
+            var index = 0
 
             // Sort substrings pointed by the offsets in the array, which will bring strings
             // with the same prefix together
@@ -19,9 +19,9 @@ object LongestSubstring {
 
             // Scan the offsets and find the longest prefix of the adjacent substrings pointed by offsets
             for (i in 0 until text.length - 1) {
-                commonPrefixLength(text, it[i], it[i + 1]).let {
-                    if (it > maxLength) {
-                        maxLength = it
+                commonPrefixLength(text, it[i], it[i + 1]).let { length ->
+                    if (length > maxLength) {
+                        maxLength = length
                         index = i
                     }
                 }
